@@ -1,12 +1,52 @@
 import Image from "next/image";
 import styles from "./FifaCard.module.css";
 
+const cardDesigns = {
+  gold: {
+    background: 'linear-gradient(180deg, #f7d67a 0%, #d4a743 100%)',
+    name: 'Gold Card'
+  },
+  silver: {
+    background: 'linear-gradient(180deg, #c0c0c0 0%, #808080 100%)',
+    name: 'Silver Card'
+  },
+  bronze: {
+    background: 'linear-gradient(180deg, #cd7f32 0%, #8b5a2b 100%)',
+    name: 'Bronze Card'
+  },
+  inform: {
+    background: 'linear-gradient(180deg, #2d2d2d 0%, #0d0d0d 100%)',
+    name: 'Team of the Week'
+  },
+  motm: {
+    background: 'linear-gradient(180deg, #9b59b6 0%, #6c3483 100%)',
+    name: 'Man of the Match'
+  },
+  toty: {
+    background: 'linear-gradient(180deg, #3498db 0%, #2c3e50 100%)',
+    name: 'Team of the Year'
+  },
+  tots: {
+    background: 'linear-gradient(180deg, #f39c12 0%, #2980b9 100%)',
+    name: 'Team of the Season'
+  },
+  hero: {
+    background: 'linear-gradient(180deg, #5f27cd 0%, #341f97 100%)',
+    name: 'Hero Card'
+  },
+  icon: {
+    background: 'linear-gradient(180deg, #74b9ff 0%, #a29bfe 100%)',
+    name: 'Icon Card'
+  }
+};
+
 export default function FifaCard({ profile, card }) {
   const hasStats = card && (card.pac || card.sho || card.pas || card.dri || card.def || card.phy);
+  const design = cardDesigns[card?.card_design] || cardDesigns.gold;
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.card}>
+      <div className={styles.card} style={{ background: design.background }}>
         <div className={styles.topCurve}></div>
 
         <div className={styles.topRow}>

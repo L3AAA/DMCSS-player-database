@@ -8,7 +8,7 @@
   width: 260px;
   max-width: 95vw;
   border-radius: 20px;
-  background: linear-gradient(180deg, #f7d67a 0%, #d4a743 100%);
+  /* Background set dynamically via inline style */
   padding: 15px;
   position: relative;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);

@@ -45,6 +45,17 @@ export default function FifaCard({ profile, card }) {
   const design = cardDesigns[card?.card_design] || cardDesigns.gold;
   const cardRef = useRef(null);
   const [downloading, setDownloading] = useState(false);
+  
+  // Compute average of available stats, rounded down
+  const avg = (() => {
+    if (!card) return null;
+    const values = [card.pac, card.sho, card.pas, card.dri, card.def, card.phy]
+      .map((v) => (typeof v === 'string' ? parseInt(v, 10) : v))
+      .filter((v) => typeof v === 'number' && !Number.isNaN(v));
+    if (!values.length) return null;
+    const sum = values.reduce((a, b) => a + b, 0);
+    return Math.floor(sum / values.length);
+  })();
 
   const downloadCard = async () => {
     if (!cardRef.current) return;
@@ -197,6 +208,13 @@ export default function FifaCard({ profile, card }) {
         <div className={styles.playerName}>
           {profile?.full_name || profile?.name || "Player Name"}
         </div>
+
+        {avg !== null && (
+          <div className={styles.avgBadge}>
+            <span className={styles.avgValue}>{avg}</span>
+            <span className={styles.avgLabel}>AVG</span>
+          </div>
+        )}
 
         {hasStats ? (
           <div className={styles.statsGrid}>

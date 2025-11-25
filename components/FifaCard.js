@@ -194,21 +194,25 @@ export default function FifaCard({ profile, card }) {
         )}
       </div>
 
-      {/* Download/Share Buttons */}
+      {/* Download/Share Buttons (icons under the card) */}
       <div className={styles.actionButtons}>
-        <button 
-          onClick={downloadCard} 
+        <button
+          onClick={downloadCard}
           className={styles.actionButton}
           disabled={downloading}
+          aria-label="Download card"
+          title="Download card"
         >
-          {downloading ? '⏳' : '💾'} Download
+          {downloading ? '⏳' : '💾'}
         </button>
-        <button 
-          onClick={shareCard} 
+        <button
+          onClick={shareCard}
           className={styles.actionButton}
           disabled={downloading}
+          aria-label="Share card"
+          title="Share card"
         >
-          {downloading ? '⏳' : '📤'} Share
+          {downloading ? '⏳' : '📤'}
         </button>
       </div>
     </div>

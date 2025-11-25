@@ -67,17 +67,21 @@ export default function SignUpPage() {
       }
 
       if (data.user) {
-        // Create profile for the new user
-        console.log("Creating profile with full_name:", fullName.trim());
+        // Create or update profile for the new user
+        // Using upsert in case a trigger already created the profile
+        console.log("Creating/updating profile with full_name:", fullName.trim());
         const { data: profileData, error: profileError } = await supabase
           .from("profiles")
-          .insert([
+          .upsert(
             {
               id: data.user.id,
               full_name: fullName.trim(),
               role: "player",
             },
-          ])
+            {
+              onConflict: "id",
+            }
+          )
           .select();
 
         if (profileError) {
@@ -87,7 +91,7 @@ export default function SignUpPage() {
           return;
         }
 
-        console.log("Profile created successfully:", profileData);
+        console.log("Profile created/updated successfully:", profileData);
 
         setSuccess(true);
         // Redirect to login after 2 seconds
